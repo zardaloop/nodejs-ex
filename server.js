@@ -141,7 +141,7 @@ var ascoltatore = {
 
 var settings = {
   http: {
-    port: 8000,
+    port: 80,
     bundle: true,
     static: './mqtt'
   }
