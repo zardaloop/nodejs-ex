@@ -143,7 +143,7 @@ var settings = {
   http: {
     port: 8000,
     bundle: true,
-    static: './'
+    static: './mqtt'
   }
   //backend: ascoltatore,
   //persistence: {
