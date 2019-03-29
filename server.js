@@ -141,7 +141,7 @@ var ascoltatore = {
 
 var settings = {
   http: {
-    port: 3000,
+    port: 8000,
     bundle: true,
     static: './'
   }
