@@ -113,9 +113,7 @@ app.get('/chat', function (req, res) {
   res.render('chat.html', { pageCountMessage : null});
 });
 
-app.use('/peerjs', require('peer').ExpressPeerServer(srv, {
-	debug: true
-}))
+
 
 // error handling
 app.use(function(err, req, res, next){
@@ -127,7 +125,12 @@ initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);
 });
 
-app.listen(port, ip);
+var server = app.listen(port, ip);
+
+app.use('/peerjs', require('peer').ExpressPeerServer(server, {
+	debug: true
+}))
+
 console.log('Server running on http://%s:%s', ip, port);
 
 module.exports = app ;
