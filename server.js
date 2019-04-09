@@ -136,17 +136,17 @@ var q = require('peer').ExpressPeerServer(server, {
 app.use('/peerjs',q);
 
 q.on('connection', function (id) {  
-  connections.push(id);
+  connections.push({id:id});
 });
 
 q.on('disconnect', function (id) {  
   connections = connections.filter(function(item) {
-  return item !== id
+  return item.id !== id
   });
 });
 
 app.get('/count', function (req, res) {
-  res.send(JSON.stringify(connections));
+  res.send(JSON.stringify({Users:connections}));
 });
 
 
