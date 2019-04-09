@@ -113,6 +113,10 @@ app.get('/chat', function (req, res) {
   res.render('chat.html', { pageCountMessage : null});
 });
 
+app.use('/peerjs', require('peer').ExpressPeerServer(srv, {
+	debug: true
+}))
+
 // error handling
 app.use(function(err, req, res, next){
   console.error(err.stack);
