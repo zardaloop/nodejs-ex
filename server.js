@@ -2,6 +2,8 @@
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
+
+var connections=[];
     
 Object.assign=require('object-assign')
 
@@ -127,9 +129,27 @@ initDb(function(err){
 
 var server = app.listen(port, ip);
 
-app.use('/peerjs', require('peer').ExpressPeerServer(server, {
+var q = require('peer').ExpressPeerServer(server, {
 	debug: true
-}))
+});
+
+app.use('/peerjs',q);
+
+q.on('connection', function (id) {  
+  connections.push(id);
+});
+
+q.on('disconnect', function (id) {  
+  connections = connections.filter(function(item) {
+  return item !== id
+  });
+});
+
+app.get('/count', function (req, res) {
+  res.send(JSON.stringify(connections));
+});
+
+
 
 console.log('Server running on http://%s:%s', ip, port);
 
